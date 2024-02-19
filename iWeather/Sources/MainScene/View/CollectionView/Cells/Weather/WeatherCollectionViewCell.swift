@@ -1,17 +1,17 @@
 //
-//  WeatherCell.swift
+//  WeatherCollectionViewCell.swift
 //  iWeather
 //
-//  Created by 1234 on 12.02.2024.
+//  Created by 1234 on 18.02.2024.
 //
 
 import UIKit
 import SVGKit
 
+class WeatherCollectionViewCell: UICollectionViewCell,
+                                 Configurable {
 
-class WeatherCell: UICollectionViewCell {
-
-    static let identifier = "WeatherCell"
+    var model: WeatherCollectionViewCellModel?
     
     // MARK: - Outlets
     
@@ -26,6 +26,7 @@ class WeatherCell: UICollectionViewCell {
     private lazy var labelForDegree: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.textAlignment = .center
         label.font = UIFont(name: "Poppins-Medium", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -55,7 +56,7 @@ class WeatherCell: UICollectionViewCell {
                                                    labelForDegree
                                                   ])
         stack.axis = .vertical
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         stack.setCustomSpacing(1, after: iconView)
         stack.setCustomSpacing(5, after: labelForDegree)
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -118,17 +119,22 @@ class WeatherCell: UICollectionViewCell {
     
     // MARK: - Configuration
     
+    func configure(with model: WeatherCollectionViewCellModel) {
+        self.model = model
+        
+        configuration(model: model.hour)
+    }
+    
     func configuration(model: Hour) {
         
         self.labelForDegree.text = "\(model.temp)" + "ºC"
-        print("Конфигурация ячейки с градусами")
 
         let url = URL(string: "https://yastatic.net/weather/i/icons/funky/dark/?\(model.icon).svg")
         guard let url = url else {
             return
         }
         
-        APIFetchHandler.sharedInstance.loadSVGImage(from: url) { [weak self] image in
+        NetworkManager.sharedInstance.loadSVGImage(from: url) { [weak self] image in
             guard let self = self else {
                 return
             }
@@ -141,7 +147,6 @@ class WeatherCell: UICollectionViewCell {
                 print("Failed to load SVG image")
             }
         }
-        
     }
     
     override func prepareForReuse() {

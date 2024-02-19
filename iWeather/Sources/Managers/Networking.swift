@@ -9,8 +9,15 @@ import Foundation
 import Alamofire
 import SVGKit
 
-class APIFetchHandler {
-    static let sharedInstance = APIFetchHandler()
+protocol NetworkServiceProtocol {
+    func fetchAPIData(lat: String?, lon: String?,
+                      completion: @escaping ((Weather) -> Void))
+    
+    func loadSVGImage(from url: URL, completion: @escaping (UIImage?) -> Void)
+}
+
+class NetworkManager: NetworkServiceProtocol {
+    static let sharedInstance = NetworkManager()
     let global = DispatchQueue.global(qos: .utility)
     
     private func createURL(baseURL: String, path: String?, queryItems: [URLQueryItem]? = nil) -> URL? {
@@ -78,7 +85,7 @@ class APIFetchHandler {
     func loadSVGImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         
         global.async {
-           
+            
             guard let svgData = try? Data(contentsOf: url),
                   let svgImage = SVGKImage(data: svgData),
                   let uiImage = svgImage.uiImage
@@ -86,7 +93,7 @@ class APIFetchHandler {
                 completion(UIImage(named: "cloud.fill"))
                 return
             }
-                completion(uiImage)
+            completion(uiImage)
         }
     }
 }

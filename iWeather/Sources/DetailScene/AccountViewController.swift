@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class AccountViewController: UIViewController {
+final class AccountViewController: UIViewController, ViewControllerProtocol {
+    
+    // MARK: - State
+    
+    var presenter: PresenterType?
     
     // MARK: - Outlets
 
@@ -25,6 +29,7 @@ final class AccountViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.customBackgroundColor
         view.add(labelHello)
         setupLayout()
     }

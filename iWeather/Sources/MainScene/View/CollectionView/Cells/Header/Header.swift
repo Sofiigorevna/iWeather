@@ -7,9 +7,10 @@
 
 import UIKit
 
-class Header: UICollectionReusableView {
+class Header: UICollectionReusableView,
+              Configurable {
     
-    static let identifier = "Header"
+    var model: HeaderModel?
     
     // MARK: - Outlets
     
@@ -49,11 +50,14 @@ class Header: UICollectionReusableView {
         ])
     }
     
+    func configure(with model: HeaderModel) {
+        self.model = model
+        
+        title.text = model.title
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         title.text = nil
     }
 }
-
-
-

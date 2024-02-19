@@ -90,11 +90,11 @@ struct CellBackground {
 extension CellBackground {
     static var allImages = [
         CellBackground(image: "8"),
-        CellBackground(image: "3"),
         CellBackground(image: "1"),
+        CellBackground(image: "4"),
         CellBackground(image: "6"),
         CellBackground(image: "5"),
-        CellBackground(image: "4"),
+        CellBackground(image: "3"),
         CellBackground(image: "7"),
         CellBackground(image: "9"),
         CellBackground(image: "2"),

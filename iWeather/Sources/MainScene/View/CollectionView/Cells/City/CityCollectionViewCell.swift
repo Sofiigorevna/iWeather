@@ -1,15 +1,16 @@
 //
-//  CityCell.swift
+//  CityCollectionViewCell.swift
 //  iWeather
 //
-//  Created by 1234 on 12.02.2024.
+//  Created by 1234 on 18.02.2024.
 //
 
 import UIKit
 
-class CityCell: UICollectionViewCell {
+class CityCollectionViewCell: UICollectionViewCell,
+                              Configurable {
     
-    static let identifier = "CityCell"
+    var model: CityCollectionViewCellModel?
     
     // MARK: - Outlets
     
@@ -81,7 +82,7 @@ class CityCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([            
+        NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -95,21 +96,17 @@ class CityCell: UICollectionViewCell {
     
     // MARK: - Configuration
     
+    func configure(
+        with model: CityCollectionViewCellModel
+    ) {
+        self.model = model
+        
+        cityName.text = model.name
+        weatherDegree.text = model.degree
+    }
+    
     func configurationBackground(model: CellBackground) {
         self.imageView.image = UIImage(named: model.image)
     }
-    
-    func configuration(weather: Weather) {
-        cityName.text = weather.locality
-        weatherDegree.text = weather.temperatureString
-    }
-    
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        self.imageView.image = nil
-//    }
 }
-
-
-
 

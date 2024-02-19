@@ -10,6 +10,11 @@ import SwifterSwift
 
 class CustomWeatherView: UIView {
     
+    var buttonTapCompletion: (()-> Void)?
+    
+    var menuButtonTapCompletion: (()-> Void)?
+    
+    
     // MARK: - Outlets
     
     private lazy var todayIsDate: UILabel = {
@@ -74,9 +79,9 @@ class CustomWeatherView: UIView {
     
     private lazy var stackMinMaxTemp: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
-                                                   minTemp,
-                                                   maxTemp
-                                                  ])
+            minTemp,
+            maxTemp
+        ])
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.setCustomSpacing(0, after: minTemp)
@@ -87,9 +92,9 @@ class CustomWeatherView: UIView {
     
     private lazy var stackTodayIsDate: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
-                                                   todayIsDate,
-                                                  stackMinMaxTemp
-                                                  ])
+            todayIsDate,
+            stackMinMaxTemp
+        ])
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.setCustomSpacing(0, after: todayIsDate )
@@ -100,7 +105,7 @@ class CustomWeatherView: UIView {
     private lazy var stackCityAndDate: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [cityName,
                                                    stackTodayIsDate,
-                                                  
+                                                   
                                                   ])
         stack.axis = .vertical
         stack.distribution = .fillEqually
@@ -162,7 +167,7 @@ class CustomWeatherView: UIView {
     
     private lazy var menuButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "Vector"), for: .normal)
+        button.setImage(UIImage(named: "menu"), for: .normal)
         button.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -210,11 +215,11 @@ class CustomWeatherView: UIView {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.leftAnchor.constraint(equalTo: leftAnchor),
             imageView.rightAnchor.constraint(equalTo: rightAnchor),
-                        
+            
             stackGeneral.topAnchor.constraint(equalTo: topAnchor, constant: 163),
             stackGeneral.leftAnchor.constraint(equalTo: leftAnchor, constant: 25),
             stackGeneral.rightAnchor.constraint(equalTo: rightAnchor, constant: -25),
-        
+            
             stackTodayIsDate.widthAnchor.constraint(equalToConstant: 155),
             
             
@@ -259,19 +264,17 @@ class CustomWeatherView: UIView {
         minTemp.text = "\(weather.tempMinString)"
         maxTemp.text = "/ \(weather.tempMaxString)"
         todayIsDate.text = weather.dateString
-
+        
     }
     
     // MARK: - Actions
     
     @objc private func accountButtonAction() {
-//        let viewController = AccountViewController()
-//        present(viewController, animated: true)
-
+        buttonTapCompletion?()
     }
     
     @objc private func menuButtonAction() {
-//        let viewController = MenuViewController()
+        menuButtonTapCompletion?()
     }
 }
 
