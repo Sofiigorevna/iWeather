@@ -148,13 +148,13 @@ extension WeatherCollectionViewDataSource {
     func registerCell() {
         // Ячейка с погодой в картинках
         collectionView.register(
-            cellWithClass: CityCollectionViewCell.self
+            CityCollectionViewCell.self, forCellWithReuseIdentifier: CityCollectionViewCell.identifier
         )
         collectionView.register(
-            cellWithClass: WeatherCollectionViewCell.self
+            WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier
         )
         collectionView.register(
-            cellWithClass: LineTextCollectionViewCell.self
+            LineTextCollectionViewCell.self, forCellWithReuseIdentifier: LineTextCollectionViewCell.identifier
         )
     }
 }

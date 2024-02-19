@@ -10,6 +10,7 @@ import SVGKit
 
 class WeatherCollectionViewCell: UICollectionViewCell,
                                  Configurable {
+    static let identifier = "WeatherCollectionViewCell"
 
     var model: WeatherCollectionViewCellModel?
     
@@ -65,7 +66,7 @@ class WeatherCollectionViewCell: UICollectionViewCell,
     
     private let bottomStack: UIStackView = {
         let stack = UIStackView()
-        stack.backgroundViewColor = UIColor(named: "purpurColor")
+        stack.backgroundColor = UIColor(named: "purpurColor")
         stack.axis = .vertical
         stack.alignment = .center
         stack.distribution = .fill

@@ -9,6 +9,8 @@ import UIKit
 
 class LineTextCollectionViewCell: UICollectionViewCell,
                                   Configurable {
+    
+    static let identifier = "LineTextCollectionViewCell"
    
     var model: LineTextCollectionViewCellModel?
     

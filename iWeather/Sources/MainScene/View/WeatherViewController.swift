@@ -46,7 +46,8 @@ final class WeatherViewController: UIViewController {
         let view = CustomWeatherView()
         view.backgroundColor = .systemIndigo
         view.clipsToBounds = true
-        view.setCorners(30)
+        view.layer.cornerRadius = 20
+        view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -64,45 +65,42 @@ final class WeatherViewController: UIViewController {
         return collectionView
     }()
     
+    var accountButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "account 1"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var menuButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "menu"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.customBackgroundColor
-        navigationController?.setNavigationBarHidden(true, animated: true)
         setupHierarchy()
         setupLayout()
+        setupNavigationBar()
         mainPresenter?.prepareInitSetup()
-        
-        weatherView.accountButton.addTarget(self, action: #selector(presentAccount), for: .touchUpInside)
-        weatherView.menuButton.addTarget(self, action: #selector(pushMenu), for: .touchUpInside)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-       
-    }
-    
+   
     // MARK: - Setup
     
-    @objc private func pushMenu() {
-        self.pushMenuViewController()
+    func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = .white
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(pushMenuViewController))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "account 1"), style: .plain, target: self, action: #selector(presentModalViewController))
     }
-    
-    @objc private func presentAccount() {
-        self.presentModalViewController()
-    }
-    
-    func presentModalViewController() {
-        let viewController = AccountViewController()
-        present(viewController, animated: true)
-    }
-    
-    func pushMenuViewController() {
-        let viewController = MenuViewController()
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    internal func prepareInitViews(with weather: Weather) {
+        
+     func prepareInitViews(with weather: Weather) {
         weatherView.configureView(with: weather)
     }
     
@@ -148,6 +146,18 @@ final class WeatherViewController: UIViewController {
             currentTime: currentTime
         )
     }
+    
+    // MARK: - Actions
+    
+    @objc func presentModalViewController() {
+        let viewController = dependencyFactory.makeAccountViewController()
+        present(viewController, animated: true)
+    }
+    
+    @objc func pushMenuViewController() {
+        let viewController = dependencyFactory.makeMenuViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -177,13 +187,7 @@ extension WeatherViewController: UICollectionViewDelegate {
     }
 }
 
-extension WeatherViewController: MainViewProtocol, MyViewDelegate {
-    func didTapButtonMenu() {
-        let viewController = dependencyFactory.makeMenuViewController()
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    
+extension WeatherViewController: MainViewProtocol {
     func success() {
         self.collectionView.reloadData()
     }

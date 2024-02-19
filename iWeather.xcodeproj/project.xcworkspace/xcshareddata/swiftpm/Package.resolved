@@ -35,15 +35,6 @@
         "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
         "version" : "1.5.4"
       }
-    },
-    {
-      "identity" : "swifterswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwifterSwift/SwifterSwift",
-      "state" : {
-        "revision" : "1eab3444fa06a344a35e79540719df956ab4d4ad",
-        "version" : "6.0.0"
-      }
     }
   ],
   "version" : 2
