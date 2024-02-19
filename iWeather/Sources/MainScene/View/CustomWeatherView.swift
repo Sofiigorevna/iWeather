@@ -8,12 +8,17 @@
 import UIKit
 import SwifterSwift
 
+protocol MyViewDelegate {
+    func didTapButtonMenu()
+}
+
 class CustomWeatherView: UIView {
-    
+   
     var buttonTapCompletion: (()-> Void)?
     
     var menuButtonTapCompletion: (()-> Void)?
     
+     var delegate: MyViewDelegate?
     
     // MARK: - Outlets
     
@@ -157,18 +162,18 @@ class CustomWeatherView: UIView {
         return button
     }()
     
-    private lazy var accountButton: UIButton = {
+         var accountButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "account 1"), for: .normal)
-        button.addTarget(self, action: #selector(accountButtonAction), for: .touchUpInside)
+       // button.addTarget(self, action: #selector(accountButtonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var menuButton: UIButton = {
+      var menuButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "menu"), for: .normal)
-        button.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
+     //   button.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -210,7 +215,6 @@ class CustomWeatherView: UIView {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.leftAnchor.constraint(equalTo: leftAnchor),
@@ -264,17 +268,24 @@ class CustomWeatherView: UIView {
         minTemp.text = "\(weather.tempMinString)"
         maxTemp.text = "/ \(weather.tempMaxString)"
         todayIsDate.text = weather.dateString
-        
     }
     
     // MARK: - Actions
     
+    func handleTapGestureMenu() {
+        self.menuButtonTapCompletion?()
+    }
+    
+    func handleTapGestureAcc() {
+        self.buttonTapCompletion?()
+    }
+
     @objc private func accountButtonAction() {
-        buttonTapCompletion?()
+        handleTapGestureAcc()
     }
     
     @objc private func menuButtonAction() {
-        menuButtonTapCompletion?()
+        delegate?.didTapButtonMenu()
     }
 }
 

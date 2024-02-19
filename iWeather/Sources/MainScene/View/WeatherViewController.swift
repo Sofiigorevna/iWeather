@@ -42,11 +42,12 @@ final class WeatherViewController: UIViewController {
     
     // MARK: - Outlets
     
-    private lazy var weatherView: CustomWeatherView = {
+    private  var weatherView: CustomWeatherView = {
         let view = CustomWeatherView()
         view.backgroundColor = .systemIndigo
         view.clipsToBounds = true
         view.setCorners(30)
+        
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -57,10 +58,8 @@ final class WeatherViewController: UIViewController {
             frame: .zero,
             collectionViewLayout: self.setupCollectionViewLayout()
         )
-        
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -74,37 +73,33 @@ final class WeatherViewController: UIViewController {
         setupHierarchy()
         setupLayout()
         mainPresenter?.prepareInitSetup()
+        
+        weatherView.accountButton.addTarget(self, action: #selector(presentAccount), for: .touchUpInside)
+        weatherView.menuButton.addTarget(self, action: #selector(pushMenu), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        pushMenu()
-        //       presentAccount()
+       
     }
     
     // MARK: - Setup
     
-    private func pushMenu() {
-        self.weatherView.menuButtonTapCompletion = { [weak self] in
-            self?.pushMenuViewController()
-        }
-        
+    @objc private func pushMenu() {
+        self.pushMenuViewController()
     }
-    private func presentAccount() {
-        self.weatherView.buttonTapCompletion = { [weak self] in
-            self?.presentModalViewController()
-        }
+    
+    @objc private func presentAccount() {
+        self.presentModalViewController()
     }
     
     func presentModalViewController() {
-        let viewController = dependencyFactory.makeAccountViewController()
+        let viewController = AccountViewController()
         present(viewController, animated: true)
     }
     
     func pushMenuViewController() {
-        let viewController = dependencyFactory.makeMenuViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        let viewController = MenuViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     internal func prepareInitViews(with weather: Weather) {
@@ -182,7 +177,12 @@ extension WeatherViewController: UICollectionViewDelegate {
     }
 }
 
-extension WeatherViewController: MainViewProtocol {
+extension WeatherViewController: MainViewProtocol, MyViewDelegate {
+    func didTapButtonMenu() {
+        let viewController = dependencyFactory.makeMenuViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     
     func success() {
         self.collectionView.reloadData()
