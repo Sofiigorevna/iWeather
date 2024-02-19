@@ -1,0 +1,50 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
+        "version" : "5.8.1"
+      }
+    },
+    {
+      "identity" : "cocoalumberjack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+      "state" : {
+        "revision" : "af4973721172dd7850a42a58a9ffcec0ec82e5a9",
+        "version" : "3.8.4"
+      }
+    },
+    {
+      "identity" : "svgkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SVGKit/SVGKit",
+      "state" : {
+        "revision" : "58152b9f7c85eab239160b36ffdfd364aa43d666",
+        "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log",
+      "state" : {
+        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
+        "version" : "1.5.4"
+      }
+    },
+    {
+      "identity" : "swifterswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwifterSwift/SwifterSwift",
+      "state" : {
+        "revision" : "1eab3444fa06a344a35e79540719df956ab4d4ad",
+        "version" : "6.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}
