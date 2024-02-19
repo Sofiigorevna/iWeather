@@ -108,8 +108,8 @@ class WeatherCollectionViewCell: UICollectionViewCell,
                         
             stack.centerXAnchor.constraint(equalTo: viewBackground.centerXAnchor),
             stack.centerYAnchor.constraint(equalTo: viewBackground.centerYAnchor),
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            stack.widthAnchor.constraint(equalToConstant: 43),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            stack.widthAnchor.constraint(equalToConstant: 47),
             
             bottomStack.topAnchor.constraint(equalTo: viewBackground.bottomAnchor, constant: 5),
             bottomStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
