@@ -6,14 +6,8 @@
 //
 
 import UIKit
-import SwifterSwift
 
 class CustomWeatherView: UIView {
-    
-    var buttonTapCompletion: (()-> Void)?
-    
-    var menuButtonTapCompletion: (()-> Void)?
-    
     
     // MARK: - Outlets
     
@@ -157,21 +151,19 @@ class CustomWeatherView: UIView {
         return button
     }()
     
-    private lazy var accountButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "account 1"), for: .normal)
-        button.addTarget(self, action: #selector(accountButtonAction), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var menuButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "menu"), for: .normal)
-        button.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+//    var accountButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "account 1"), for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
+//    
+//    var menuButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "menu"), for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
     
     private lazy var imageView: UIImageView = {
         let image = UIImage(named: "main")
@@ -202,15 +194,14 @@ class CustomWeatherView: UIView {
         self.add(
             stackGeneral,
             labelSwipeDown,
-            swipeDownButton,
-            accountButton,
-            menuButton
+            swipeDownButton
+//            accountButton,
+//            menuButton
         )
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.leftAnchor.constraint(equalTo: leftAnchor),
@@ -233,26 +224,16 @@ class CustomWeatherView: UIView {
             swipeDownButton.topAnchor.constraint(equalTo: labelSwipeDown.bottomAnchor, constant: 9),
             swipeDownButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 197),
             
-            accountButton.heightAnchor.constraint(equalToConstant: 34),
-            accountButton.widthAnchor.constraint(equalToConstant: 34),
-            accountButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 25),
-            accountButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
-            
-            menuButton.heightAnchor.constraint(equalToConstant: 18),
-            menuButton.widthAnchor.constraint(equalToConstant: 34),
-            menuButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -27),
-            menuButton.topAnchor.constraint(equalTo: topAnchor, constant: 58),
+//            accountButton.heightAnchor.constraint(equalToConstant: 34),
+//            accountButton.widthAnchor.constraint(equalToConstant: 34),
+//            accountButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 25),
+//            accountButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+//
+//            menuButton.heightAnchor.constraint(equalToConstant: 18),
+//            menuButton.widthAnchor.constraint(equalToConstant: 34),
+//            menuButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -27),
+//            menuButton.topAnchor.constraint(equalTo: topAnchor, constant: 58),
         ])
-    }
-    
-    // скруглить только низ
-    func setCorners(_ corners: CGFloat) {
-        self.layer.masksToBounds = true
-        self.layer.cornerRadius = corners
-        self.layer.maskedCorners = [
-            .layerMinXMaxYCorner,
-            .layerMaxXMaxYCorner
-        ]
     }
     
     // MARK: - Configuration
@@ -264,17 +245,6 @@ class CustomWeatherView: UIView {
         minTemp.text = "\(weather.tempMinString)"
         maxTemp.text = "/ \(weather.tempMaxString)"
         todayIsDate.text = weather.dateString
-        
-    }
-    
-    // MARK: - Actions
-    
-    @objc private func accountButtonAction() {
-        buttonTapCompletion?()
-    }
-    
-    @objc private func menuButtonAction() {
-        menuButtonTapCompletion?()
     }
 }
 

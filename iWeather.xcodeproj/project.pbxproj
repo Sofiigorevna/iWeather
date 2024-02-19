@@ -49,7 +49,6 @@
 		7CF38A222B7A6FAF0018DD8D /* CustomWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF38A212B7A6FAF0018DD8D /* CustomWeatherView.swift */; };
 		7CF38A242B7A70EA0018DD8D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF38A232B7A70EA0018DD8D /* UIView+Extension.swift */; };
 		7CF38A272B7A76AE0018DD8D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF38A262B7A76AE0018DD8D /* Header.swift */; };
-		7CF38A2C2B7A83C30018DD8D /* SwifterSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7CF38A2B2B7A83C30018DD8D /* SwifterSwift */; };
 		7CF38A2E2B7A87A10018DD8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF38A2D2B7A87A10018DD8D /* Models.swift */; };
 		7CF38A3B2B7CDFF70018DD8D /* HeaderChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF38A3A2B7CDFF70018DD8D /* HeaderChevron.swift */; };
 		7CF38A3D2B7CE2330018DD8D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF38A3C2B7CE2330018DD8D /* Networking.swift */; };
@@ -110,7 +109,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CF38A2C2B7A83C30018DD8D /* SwifterSwift in Frameworks */,
 				7C5F9DFD2B7FA10F009D3BA7 /* SVGKit in Frameworks */,
 				7CF38A402B7CE24A0018DD8D /* Alamofire in Frameworks */,
 			);
@@ -404,7 +402,6 @@
 			);
 			name = iWeather;
 			packageProductDependencies = (
-				7CF38A2B2B7A83C30018DD8D /* SwifterSwift */,
 				7CF38A3F2B7CE24A0018DD8D /* Alamofire */,
 				7C5F9DFC2B7FA10F009D3BA7 /* SVGKit */,
 			);
@@ -437,7 +434,6 @@
 			);
 			mainGroup = 7CF389F02B79283C0018DD8D;
 			packageReferences = (
-				7CF38A2A2B7A83C30018DD8D /* XCRemoteSwiftPackageReference "SwifterSwift" */,
 				7CF38A3E2B7CE24A0018DD8D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				7C5F9DFB2B7FA10F009D3BA7 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
@@ -732,14 +728,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		7CF38A2A2B7A83C30018DD8D /* XCRemoteSwiftPackageReference "SwifterSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwifterSwift/SwifterSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
 		7CF38A3E2B7CE24A0018DD8D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -755,11 +743,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7C5F9DFB2B7FA10F009D3BA7 /* XCRemoteSwiftPackageReference "SVGKit" */;
 			productName = SVGKit;
-		};
-		7CF38A2B2B7A83C30018DD8D /* SwifterSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7CF38A2A2B7A83C30018DD8D /* XCRemoteSwiftPackageReference "SwifterSwift" */;
-			productName = SwifterSwift;
 		};
 		7CF38A3F2B7CE24A0018DD8D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

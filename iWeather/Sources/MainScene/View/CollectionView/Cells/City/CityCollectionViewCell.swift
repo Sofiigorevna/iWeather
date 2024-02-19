@@ -9,6 +9,7 @@ import UIKit
 
 class CityCollectionViewCell: UICollectionViewCell,
                               Configurable {
+    static let identifier = "CityCollectionViewCell"
     
     var model: CityCollectionViewCellModel?
     

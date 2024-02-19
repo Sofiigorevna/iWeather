@@ -51,7 +51,7 @@ class WeatherCollectionViewCellModel: CollectionViewCompatible {
             self.formatToTime($0)
         }
         
-        cell.labelForTime.text = hoursStrings[safe: indexPath.row]
+        cell.labelForTime.text = hoursStrings[indexPath.row]
         cell.configure(with: self)
         
         if indexPath.row == 0 {

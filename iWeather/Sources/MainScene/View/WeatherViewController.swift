@@ -42,11 +42,13 @@ final class WeatherViewController: UIViewController {
     
     // MARK: - Outlets
     
-    private lazy var weatherView: CustomWeatherView = {
+    private  var weatherView: CustomWeatherView = {
         let view = CustomWeatherView()
         view.backgroundColor = .systemIndigo
         view.clipsToBounds = true
-        view.setCorners(30)
+        view.layer.cornerRadius = 20
+        view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -57,12 +59,24 @@ final class WeatherViewController: UIViewController {
             frame: .zero,
             collectionViewLayout: self.setupCollectionViewLayout()
         )
-        
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
+    }()
+    
+    var accountButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "account 1"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var menuButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "menu"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     // MARK: - Lifecycle
@@ -70,44 +84,23 @@ final class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.customBackgroundColor
-        navigationController?.setNavigationBarHidden(true, animated: true)
         setupHierarchy()
         setupLayout()
+        setupNavigationBar()
         mainPresenter?.prepareInitSetup()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        pushMenu()
-        //       presentAccount()
-    }
-    
+   
     // MARK: - Setup
     
-    private func pushMenu() {
-        self.weatherView.menuButtonTapCompletion = { [weak self] in
-            self?.pushMenuViewController()
-        }
+    func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = .white
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(pushMenuViewController))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "account 1"), style: .plain, target: self, action: #selector(presentModalViewController))
     }
-    private func presentAccount() {
-        self.weatherView.buttonTapCompletion = { [weak self] in
-            self?.presentModalViewController()
-        }
-    }
-    
-    func presentModalViewController() {
-        let viewController = dependencyFactory.makeAccountViewController()
-        present(viewController, animated: true)
-    }
-    
-    func pushMenuViewController() {
-        let viewController = dependencyFactory.makeMenuViewController()
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    internal func prepareInitViews(with weather: Weather) {
+        
+     func prepareInitViews(with weather: Weather) {
         weatherView.configureView(with: weather)
     }
     
@@ -153,6 +146,18 @@ final class WeatherViewController: UIViewController {
             currentTime: currentTime
         )
     }
+    
+    // MARK: - Actions
+    
+    @objc func presentModalViewController() {
+        let viewController = dependencyFactory.makeAccountViewController()
+        present(viewController, animated: true)
+    }
+    
+    @objc func pushMenuViewController() {
+        let viewController = dependencyFactory.makeMenuViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -183,7 +188,6 @@ extension WeatherViewController: UICollectionViewDelegate {
 }
 
 extension WeatherViewController: MainViewProtocol {
-    
     func success() {
         self.collectionView.reloadData()
     }
